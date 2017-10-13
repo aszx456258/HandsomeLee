@@ -10,6 +10,15 @@ import UIKit
 
 class TableViewController: UITableViewController {
     var restaurantNames = ["Cafe Deadend", "Homei", "Teakha", "Cafe Loisl", "PetiteOyster", "For Kee Restaurant", "Po's Atelier", "Bourke Street Bakery", "Haigh'sChocolate", "Palomino Espresso", "Upstate", "Traif", "Graham AvenueMeats AndDeli", "Waffle & Wolf", "Five Leaves", "Cafe Lore","Confessional","Barrafina","Donostia","RoyalOak","CASKPuband Kitchen"]
+    var restaurantImages = ["cafedeadend.jpg", "homei.jpg", "teakha.jpg",
+                            "cafeloisl.jpg", "petiteoyster.jpg", "forkeerestaurant.jpg", "posatelier.jpg",
+                            "bourkestreetbakery.jpg", "haighschocolate.jpg", "palominoespresso.jpg",
+                            "upstate.jpg", "traif.jpg", "grahamavenuemeats.jpg", "wafflewolf.jpg",
+                            "fiveleaves.jpg", "cafelore.jpg", "confessional.jpg", "barrafina.jpg",
+                            "donostia.jpg", "royaloak.jpg", "thaicafe.jpg"]
+    var restaurantLocations = ["Hong Kong", "Hong Kong", "Hong Kong", "Hong Kong", "Hong Kong", "HongKong", "Hong Kong", "Sydney", "Sydney", "Sydney", "New York", "New York", "New York", "New York", "NewYork", "New York", "New York", "London", "London", "London", "London"]
+    var restaurantTypes = ["Coffee & Tea Shop", "Cafe", "Tea House", "Austrian / Causual Drink", "French",
+                           "Bakery", "Bakery", "Chocolate", "Cafe", "American / Seafood", "American","American","Breakfast&Brunch", "Coffee & Tea", "Coffee & Tea", "Latin American", "Spanish", "Spanish", "Spanish", "British","Thai"]
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,11 +47,21 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = restaurantNames[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! restaurantTableViewCell
+        cell.nameLabel.text = restaurantNames[indexPath.row]
+        cell.locationLabel.text = restaurantLocations[indexPath.row]
+        cell.typeLabel.text = restaurantTypes[indexPath.row]
+        cell.thumbnailImage?.image = UIImage(named: restaurantImages[indexPath.row])
+        cell.thumbnailImage.layer.cornerRadius = 30.0
+        cell.thumbnailImage.clipsToBounds = true
+        
         // Configure the cell...
 
         return cell
+    }
+    override var prefersStatusBarHidden: Bool
+    {
+        return true
     }
     /*
     // Override to support conditional editing of the table view.

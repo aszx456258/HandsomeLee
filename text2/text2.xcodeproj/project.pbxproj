@@ -15,6 +15,7 @@
 		145D6BC11F908AC7004AD5FB /* text2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145D6BC01F908AC7004AD5FB /* text2Tests.swift */; };
 		145D6BCC1F908AC7004AD5FB /* text2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145D6BCB1F908AC7004AD5FB /* text2UITests.swift */; };
 		145D6BDA1F908C49004AD5FB /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145D6BD91F908C49004AD5FB /* TableViewController.swift */; };
+		145D6BDC1F909938004AD5FB /* restaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145D6BDB1F909938004AD5FB /* restaurantTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		145D6BCB1F908AC7004AD5FB /* text2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text2UITests.swift; sourceTree = "<group>"; };
 		145D6BCD1F908AC7004AD5FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		145D6BD91F908C49004AD5FB /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		145D6BDB1F909938004AD5FB /* restaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = restaurantTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				145D6BB41F908AC7004AD5FB /* LaunchScreen.storyboard */,
 				145D6BB71F908AC7004AD5FB /* Info.plist */,
 				145D6BD91F908C49004AD5FB /* TableViewController.swift */,
+				145D6BDB1F909938004AD5FB /* restaurantTableViewCell.swift */,
 			);
 			path = text2;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				145D6BAE1F908AC7004AD5FB /* ViewController.swift in Sources */,
+				145D6BDC1F909938004AD5FB /* restaurantTableViewCell.swift in Sources */,
 				145D6BDA1F908C49004AD5FB /* TableViewController.swift in Sources */,
 				145D6BAC1F908AC7004AD5FB /* AppDelegate.swift in Sources */,
 			);
