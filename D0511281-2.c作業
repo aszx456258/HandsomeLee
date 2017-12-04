@@ -120,7 +120,7 @@ void del(int *num)
             }
             if(flag==0)
             {
-                printf("¼Æ¦r¤£¦b¦ê¦C¤º\n");
+                printf("æ•¸å­—ä¸åœ¨ä¸²åˆ—å…§\n");
             }
         }
 	}
@@ -133,12 +133,12 @@ int main()
 {
     do
     {
-        printf("1:·s¼W¼Æ¦r 2:­×§ï¼Æ¦r 3:§R°£¼Æ¦r 4:¥ş³¡¦L¥X 5:Â÷¶}\n");
+        printf("1:æ–°å¢æ•¸å­— 2:ä¿®æ”¹æ•¸å­— 3:åˆªé™¤æ•¸å­— 4:å…¨éƒ¨å°å‡º 5:é›¢é–‹\n");
         scanf("%d",&user);
         ptr = head;
         if(user == 1)
         {
-        	printf("­n·s¼Wªº¼Æ¦r");
+        	printf("è¦æ–°å¢çš„æ•¸å­—");
         	scanf("%d",&num);
             add(&num);
         }
@@ -147,9 +147,9 @@ int main()
             int flag = 0,num2,turn = 0;
             if(head!=NULL)
             {
-                printf("­n­×§ïªº¼Æ¦r:");
+                printf("è¦ä¿®æ”¹çš„æ•¸å­—:");
                 scanf("%d",&num);
-                printf("·s¼Æ¦r:");
+                printf("æ–°æ•¸å­—:");
                 scanf("%d",&num2);
                 while(ptr!=NULL)
 	            {
@@ -177,7 +177,7 @@ int main()
         }
         else if(user == 3)
         {
-        	printf("­n§R°£ªº¼Æ¦r:");
+        	printf("è¦åˆªé™¤çš„æ•¸å­—:");
         	scanf("%d",&num);
             del(&num);
     	}
