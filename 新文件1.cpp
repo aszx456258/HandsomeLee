@@ -25,7 +25,7 @@ listPointer insert(listPointer n,int number)
         	insert(n->left, number);
 		}		
       	else
-      	{                                 // 走到最底的地方新增node
+      	{ // 走到最底的地方新增node
 	    	listPointer newnode = createnode();
 	    	newnode->data = number;
 	    	n->left = newnode;
@@ -39,7 +39,7 @@ listPointer insert(listPointer n,int number)
         	insert(n->right, number);
 		}		
       	else
-      	{                                 // 走到最底的地方新增node
+      	{
 	    	listPointer newnode = createnode();
 	    	newnode->data = number;
 	    	n->right = newnode;
@@ -185,7 +185,7 @@ int main()
                 		{
                 			temp->parent->left = NULL;
 						}
-						else
+						else if(temp->parent->right == temp)
 						{
 							temp->parent->right = NULL;
 						}
@@ -202,10 +202,20 @@ int main()
 						}
 						if(flag==0)
 						{
-							temp->data = root->data;
-							root->parent->left = root->left;
-							root->left->parent = root->parent;
-							free(root);
+							if(root->left!=NULL)
+							{
+								temp->data = root->data;
+								root->parent->left = root->left;
+								root->left->parent = root->parent;
+								free(root);
+							}
+							else
+							{
+								temp->data = root->data;
+								root->parent->left = NULL;
+								free(root);
+							}
+							
 						}
 						else if(root->left==NULL)  
 						{
@@ -232,10 +242,19 @@ int main()
 						}
 						if(flag==0)
 						{
-							temp->data = root->data;
-							root->parent->right = root->right;
-							root->right->parent = root->parent;
-							free(root);
+							if(root->right!=NULL)
+							{
+								temp->data = root->data;
+								root->parent->right = root->right;
+								root->right->parent = root->parent;
+								free(root);
+							}
+							else
+							{
+								temp->data = root->data;
+								root->parent->right = NULL;
+								free(root);
+							}
 						} 
 						else if(root->right == NULL)
 						{
@@ -250,7 +269,6 @@ int main()
 							root->right->parent = root->parent;
 							free(root);
 						}
-						
 					}
 					else
 					{
