@@ -198,9 +198,16 @@ int main()
                 		while(root->right!=NULL)
                 		{
                 			root = root->right;
-                			flag = 1;
+                			flag=1;
 						}
-						if(flag == 1)
+						if(flag==0)
+						{
+							temp->data = root->data;
+							root->parent->left = root->left;
+							root->left->parent = root->parent;
+							free(root);
+						}
+						else if(root->left==NULL)  
 						{
 							temp->data = root->data;
 							root->parent->right = NULL;
@@ -209,9 +216,10 @@ int main()
 						else
 						{
 							temp->data = root->data;
-							root->parent->left = NULL;
+							root->parent->right = root->left;
+							root->left->parent = root->parent;
 							free(root);
-						}
+						} 
 					}
 					else if(root->right!=NULL)
 					{
@@ -222,7 +230,14 @@ int main()
                 			root = root->left;
                 			flag = 1;
 						}
-						if(flag == 1)
+						if(flag==0)
+						{
+							temp->data = root->data;
+							root->parent->right = root->right;
+							root->right->parent = root->parent;
+							free(root);
+						} 
+						else if(root->right == NULL)
 						{
 							temp->data = root->data;
 							root->parent->left = NULL;
@@ -231,9 +246,11 @@ int main()
 						else
 						{
 							temp->data = root->data;
-							root->parent->right = NULL;
+							root->parent->left = root->right;
+							root->right->parent = root->parent;
 							free(root);
 						}
+						
 					}
 					else
 					{
@@ -272,3 +289,24 @@ int main()
     while(user!=5);
     return 0;
 }
+/*
+1
+50
+1
+40
+1
+60
+1
+45
+1
+44
+1
+43
+1
+30
+1
+46
+4
+
+
+*/
