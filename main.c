@@ -3,143 +3,356 @@
 typedef struct listNode *listPointer;
 typedef struct listNode{
     int data;
-    listPointer link;
-};
-listPointer creatnode()
+    int index;
+    listPointer right;
+    listPointer left;
+    listPointer parent;
+}node;
+listPointer createnode()
 {
-    struct listNode a;
     listPointer ptr = NULL;
-    ptr=(listPointer)malloc(sizeof(a));
-    ptr->link = NULL;
+    ptr=(listPointer)malloc(sizeof(node));
+    ptr->left = NULL;
+    ptr->right = NULL;
+    ptr->parent = NULL;
     return ptr;
+}
+void check(listPointer root)
+{
+    if(root->parent != NULL) //┕浪琩
+    {
+        listPointer p = root->parent;
+        if(root->data > p->data) //よゑroot
+        {
+            int temp = root->data;
+            root->data = p->data;
+            p->data = temp;
+            check(p);
+        }
+    }
+    if(root->left != NULL && root->right != NULL) //┕浪琩 オ常Τ
+    {
+        listPointer leftc = root->left;
+        listPointer rightc = root->right;
+        if(leftc->data > rightc->data) //オゑ
+        {
+            if(root->data < leftc->data) //よゑroot
+            {
+                int temp = root->data;
+                root->data = leftc->data;
+                leftc->data = temp;
+            }
+        }
+        else//オゑ
+        {
+            if(root->data < rightc->data) //よゑroot
+            {
+                int temp = root->data;
+                root->data = rightc->data;
+                rightc->data = temp;
+            }
+        }
+    }
+    else if(root->left != NULL && root->right == NULL) //Τオ
+    {
+        listPointer leftc = root->left;
+        if(root->data < leftc->data) //よゑroot
+        {
+            int temp = root->data;
+            root->data = leftc->data;
+            leftc->data = temp;
+        }
+    }
+}
+void delet(listPointer root, listPointer lastnode)
+{
+    root->data = lastnode->data;
+    check(root);
+    if(lastnode->parent != NULL) //临Τ竊翴
+    {
+        listPointer p = lastnode->parent;
+        if(p->left == lastnode)
+        {
+            p->left = NULL;
+        }
+        else if(p->right == lastnode)
+        {
+            p->right = NULL;
+        }
+        free(lastnode);
+    }
+    else//逞root
+    {
+        free(root);
+    }
+}
+listPointer insert(listPointer root,int index)
+{
+    if(index/2 !=1)
+    {
+        listPointer ptr = insert(root,index/2);
+        if(index%2!=0)
+        {
+            if(ptr->right != NULL)
+            {
+                ptr = ptr->right;
+            }
+        }
+        else if(index%2 == 0)
+        {
+            if(ptr->left != NULL)
+            {
+                ptr = ptr->left;
+            }
+        }
+        return ptr;
+    }
+    else
+    {
+        if(index%2!=0)
+        {
+            if(root->right != NULL)
+            {
+                root = root->right;
+            }
+        }
+        else
+        {
+            if(root->left != NULL)
+            {
+                root = root->left;
+            }
+        }
+        return root;
+    }
+}
+listPointer finddata(listPointer root,int data)
+{
+    if(root->data == data)
+    {
+        return root;
+    }
+    if(root->left != NULL && root->right != NULL)
+    {
+        listPointer leftc = finddata(root->left,data);
+        listPointer rightc = finddata(root->right,data);
+        if(leftc != NULL)
+        {
+            return leftc;
+        }
+        else if(rightc != NULL)
+        {
+            return rightc;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    else if(root->left != NULL)
+    {
+        listPointer leftc = finddata(root->left,data);
+        if(leftc != NULL)
+        {
+            return leftc;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    //else if(root->right != NULL)
+    //{
+    //    listPointer rightc = finddata(root->right,data);
+    //    if(rightc != NULL)
+    //    {
+    //        return rightc;
+     //   }
+    //    else
+    //    {
+    //        return NULL;
+    //    }
+   // }
+    else
+    {
+        return NULL;
+    }
+}
+listPointer findindex(listPointer root,int index) //穓碝ま
+{
+    if(root->index == index)
+    {
+        return root;
+    }
+    if(root->left != NULL && root->right != NULL)
+    {
+        listPointer leftc = findindex(root->left,index);
+        listPointer rightc = findindex(root->right,index);
+        if(leftc != NULL)
+        {
+            return leftc;
+        }
+        else if(rightc != NULL)
+        {
+            return rightc;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    else if(root->left != NULL)
+    {
+        listPointer leftc = findindex(root->left,index);
+        if(leftc != NULL)
+        {
+            return leftc;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    else if(root->right != NULL)
+    {
+        listPointer rightc = findindex(root->right,index);
+        if(rightc != NULL)
+        {
+            return rightc;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    else
+    {
+        return NULL;
+    }
+}
+void print(listPointer root,int level)
+{
+    if(root->right!=NULL)
+    {
+        print(root->right,level+1);
+    }
+    printf("%*s%d\n",4*level,"",root->data);
+    if(root->left!=NULL)
+    {
+        print(root->left,level+1);
+    }
 }
 int main()
 {
-    int user,num,newnumber;
-    listPointer head = NULL;
+    listPointer temp,root=NULL;
+    int user,data,index=0;
     do
     {
-        printf("1:穝糤计 2:э计 3:础计 4:埃计 5:场 6:瞒秨\n");
+        printf("0:add,1:find,2:delete,3:print,4:exit\n");
         scanf("%d",&user);
-        listPointer ptr = head;
-        if(user == 1)
+        if(user == 0)
         {
             printf("input number");
-            scanf("%d",&num);
-            if(head!=NULL)
+            scanf("%d",&data);
+            if(root == NULL)
             {
-                listPointer newptr = creatnode();
-                while(ptr->link != NULL)
-                {
-                    ptr = ptr->link;
-                }
-                ptr->link = newptr;
-                ptr->link->data = num;
+                root = createnode();
+                root -> data = data;
+                root -> index = ++index;
             }
             else
             {
-                listPointer newptr = creatnode();
-                head = newptr;
-                head->data = num;
+            	temp = finddata(root,data);
+            	if(temp == NULL)
+            	{
+	                listPointer newnode = createnode();
+	                newnode->data = data;
+	                newnode->index = ++index;
+	                temp = insert(root,newnode->index);
+	                if(index%2==0)
+	                {
+	                    temp->left = newnode;
+	                }
+	                else
+	                {
+	                    temp->right = newnode;
+	                }
+	                newnode->parent = temp;
+	                check(newnode);
+				}
+				else
+				{
+					printf("error\n");
+				}
             }
+        }
+        else if(user == 1)
+        {
+            if(root == NULL)
+            {
+                printf("empty");
+            }
+            else
+            {
+                printf("input number");
+                scanf("%d",&data);
+                temp = finddata(root,data);
+                if(temp == NULL)
+                {
+                    printf("not found");
+                }
+                else
+                {
+                    printf("find %d index:%d",data,temp->index);
+                }
+            }
+            printf("\n");
         }
         else if(user == 2)
         {
-            printf("璶э计:\n");
-            scanf("%d",&num);
-            printf("穝计:\n");
-            scanf("%d",&newnumber);
-            while(ptr!=NULL)
+            if(root == NULL)
             {
-                if(ptr->data == num)
-                {
-                    ptr->data = newnumber;
-                    break;
-                }
-                ptr = ptr->link;
+                printf("empty\n");
             }
-            if(ptr==NULL)
+            else
             {
-                printf("计ぃ﹃ず\n");
+                temp = findindex(root,index);
+                index--;
+                delet(root,temp);
+                if(index == 0)
+                {
+                    root = NULL;  //main柑rootゲ斗эNULL
+                }
             }
         }
         else if(user == 3)
         {
-            printf("璶础计:\n");
-            scanf("%d",&newnumber);
-            printf("璶础计:\n");
-            scanf("%d",&num);
-            listPointer newptr = creatnode();
-            while(ptr!=NULL)
+            if(root == NULL)
             {
-                if(ptr->data == num)
-                {
-                    listPointer ptr2 = ptr->link;
-                    ptr->link = newptr;
-                    newptr->link = ptr2;
-                    newptr->data = newnumber;
-                    break;
-                }
-                ptr = ptr->link;
-            }
-            if(ptr==NULL)
-            {
-                printf("计ぃ﹃ず\n");
-            }
-        }
-        else if(user == 4)
-        {
-            int flag=0;
-            printf("璶埃计:\n");
-            scanf("%d",&num);
-            listPointer ptr2 = NULL;
-            if(num == head->data)
-            {
-                head = head->link;
-                free(ptr);
-                flag=1;
+                printf("empty\n");
             }
             else
             {
-                ptr = ptr->link;
-                ptr2 = head;
-                while(ptr!=NULL)
-                {
-                    if(ptr->data == num)
-                    {
-                        if(ptr->link == NULL)
-                        {
-                            ptr2->link = NULL;
-                            free(ptr);
-                        }
-                        else
-                        {
-                            listPointer delptr = ptr;
-                            ptr = ptr->link;
-                            ptr2->link = ptr;
-                            free(delptr);
-                        }
-                        flag=1;
-                        break;
-                    }
-                    ptr = ptr->link;
-                    ptr2 = ptr2->link;
-                }
-                if(flag==0)
-                {
-                    printf("计ぃ﹃ず\n");
-                }
-            }
-        }
-        else if(user == 5)
-        {
-            while(ptr!=NULL)
-            {
-                printf("%d\n",ptr->data);
-                ptr = ptr->link;
+                print(root,0);
             }
         }
     }
-    while(user!=6);
+    while(user!=4);
     return 0;
 }
+/*
+0
+15
+0
+7
+0
+11
+0
+3
+0
+8
+0
+6
+0
+14
+*/
