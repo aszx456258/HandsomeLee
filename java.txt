@@ -1,0 +1,38 @@
+package main.java.fcu.iecs.oop.password;
+
+public class PasswordEncorder {
+	public String encode(String password) {
+		for(int i =0;i<password.length();i++) {
+			if(password.charAt(i) == 'A' || password.charAt(i) == 'a') {
+				password = password.replace(password.charAt(i), '4');
+			}
+			else if(password.charAt(i) == 'E' || password.charAt(i) == 'e') {
+				password = password.replace(password.charAt(i), '3');
+			}
+			else if(password.charAt(i) == 'I' || password.charAt(i) == 'i') {
+				password = password.replace(password.charAt(i), '1');
+			}
+			else if(password.charAt(i) == 'O' || password.charAt(i) == 'o') {
+				password = password.replace(password.charAt(i), '0');
+			}
+			else if(password.charAt(i) == 'T' || password.charAt(i) == 't') {
+				password = password.replace(password.charAt(i), '7');
+			}
+		}
+		return password;
+	}
+}
+package main.java.fcu.iecs.oop.password;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		PasswordEncorder user = new PasswordEncorder();
+		Scanner input = new Scanner(System.in);
+		String str = input.next();
+		System.out.println(user.encode(str));
+	}
+
+}
