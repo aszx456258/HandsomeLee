@@ -1,4 +1,26 @@
-package main.java.fcu.iecs.oop.password;
+package fcu.iecs.oop.password;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		PasswordEncorder user = new PasswordEncorder();
+		Scanner input = new Scanner(System.in);
+		String str;
+		do {
+			System.out.println("input password");
+			str = input.next();
+			if(str.equals("exit")) break;
+			System.out.println(user.encode(str));
+		}
+		while(!str.equals("exit"));
+		System.out.println("exit");
+		
+	}
+
+}
+package fcu.iecs.oop.password;
 
 public class PasswordEncorder {
 	public String encode(String password) {
@@ -21,18 +43,4 @@ public class PasswordEncorder {
 		}
 		return password;
 	}
-}
-package main.java.fcu.iecs.oop.password;
-
-import java.util.Scanner;
-
-public class Main {
-
-	public static void main(String[] args) {
-		PasswordEncorder user = new PasswordEncorder();
-		Scanner input = new Scanner(System.in);
-		String str = input.next();
-		System.out.println(user.encode(str));
-	}
-
 }
